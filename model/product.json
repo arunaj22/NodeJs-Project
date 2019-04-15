@@ -1,0 +1,34 @@
+[
+
+{
+    "id": 1,
+    "name": "Product1",
+    "email": "node@google.com",
+    "Comment": "Liam very much loves to teach us node"
+
+},
+
+{
+     "id": 2,
+    "name": "Antique Collectables",
+    "email": "node@google.com",
+    "Comment": "Good Quality Restorattion"
+
+},
+
+{
+     "id": 3,
+    "name": "Jelwlleryt",
+    "email": "node@google.com",
+    "Comment": "Jelwllery restoration"
+},
+
+{
+     "id": 4,
+    "name": "Furniture",
+    "email": "node@google.com",
+    "Comment": "Furniture and Upholstry"
+
+}
+
+] 

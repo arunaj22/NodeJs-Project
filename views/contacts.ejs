@@ -1,0 +1,29 @@
+<% include ../partials/header%>
+        
+            <div class="row">
+                <h2> Welcome to Contacs page</h2>
+<div class="row">
+  <h2>Contacts Page with JSON Data Comments passed on through the form from Contact us page <br>
+  <div class="grid-container">
+      <% contact.forEach(function(contact){ %>
+      
+           <div class="item">     
+                <div class="item">
+                   <h1 class="itemtitle">Id: <%= contact.id %> </h1>
+                   <h1 class="itemtitle">Id: <%= contact.name %> </h1>
+                   <h1 class="itemtitle">Id: <%= contact.email %> </h1>
+                   <h1 class="itemtitle">Id: <%= contact.Comment %> </h1>
+                   
+                   <a href="/deletecontact/<%= contact.id %>" class="button">Delete Me!</a>
+                </div>
+            </div>
+              
+         <% }); %>
+    </div>
+  </h2>
+</div>
+
+
+
+        
+   <% include ../partials/footer%>
