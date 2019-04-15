@@ -2,6 +2,9 @@ var express = require("express"); // this line calls the exress framework to act
 // never write abything above this express call line.
 var app = express();
 
+//call the middleware to action
+var mysql = require('mysql');
+
 app.set("view engine", "ejs"); // set default view engine
 
 var fs = require('fs');
@@ -20,15 +23,84 @@ app.use(express.static("script"));
 //Call the access to the imager folder  and allow content to be render images
 app.use(express.static("images"));
 
+// create connectivity to sql Database
+// Sub these details for you own gear host database details
+const db = mysql.createConnection ({
+ host:'den1.mysql3.gear.host',
+ user:'nodepro',
+ password:'Yg6G2tl!5TN_',
+ database:'nodepro'
+});
+
+// Put some clarity on our connection status
+
+db.connect((err) => {
+     if(err){
+    console.log("The Connection Failed ....... ");
+    }
+    else {
+        console.log("Yes the connection is great");
+    }
+ });
+
 //Get call for the index page or first message ob browser
 app.get('/', function(req,res){ // this line calls get request on the / URL of the application
 //  setting up a message to us on browser 
     //res.send("Hello January Class") ;// we will send a string response to the browser
     res.render("index");
-
     console.log("The message was sent and you made an app");
 });
 
+ // -----------------SQL DATA Starts HERE----------------
+// create a route to create a database table..after creating the table comment the createtable section.
+//app.get('/createtable', function(req, res){
+//let sql = 'CREATE TABLE services (Id int NOT NULL AUTO_INCREMENT PRIMARY KEY, Name varchar(255), Price int, Desciption varchar(255),Image varchar(255) );'
+    
+  //  let query = db.query(sql, (err,res) => {
+    //    if(err) throw err;
+    //});
+    //res.send("SQL Worked");
+//});
+
+//Route to create a product by hardcode
+app.get('/createproduct', function(req, res){
+   let sql = 'INSERT INTO services (Name, Price, Desciption, Image) VALUES ("Necklace", 199,  "chain with pendant" ,"chain.jpg")'
+   let query = db.query(sql, (err,res) => {
+       if(err) throw err;
+    });
+    res.send("Product Created here");
+});
+
+//Route to create to show all service 
+app.get('/servicessql', function(req, res){
+   let sql = 'SELECT * FROM services'
+   let query = db.query(sql, (err,res1) => {
+       if(err) throw err;
+       res.render('showservices', {res1});
+    });
+   // res.send("Product Created here");
+});
+
+
+// function to delete database adta based on button press and form
+app.get('/deletesql/:id', function(req, res){
+ // res.send("Hello cruel world!"); // This is commented out to allow the index view to be rendered
+ let sql = 'DELETE FROM services WHERE Id = "'+req.params.Id+'";'
+ let query = db.query(sql, (err, res1) =>{
+  if(err)
+  throw(err);
+ 
+  res.redirect('/servicessql'); // use the render command so that the response object renders a HHTML page
+  
+ });
+ 
+ console.log("Its Gone!");
+});
+
+
+
+ // -----------------SQL DATA Finish HERE----------------
+ 
 /----------From Her JSON Data Starts-------------------//
 //route to Contacts 'About us'page
 app.get('/contacts', function(req,res){ // this line calls get request on the / URL of the application
@@ -109,6 +181,42 @@ app.get('/deletecontact/:id', function(req,res){
 
 console.log("Ha Ha ....... its gone!")    
 res.redirect('/contacts')
+
+});
+//route to edit page of JSON Data
+app.get('/editcontact/:id', function(req, res){
+    function chooseContact(indOne){
+    return indOne.id === parseInt(req.params.id)
+}
+    var indOne = contact.filter(chooseContact);
+      res.render('editcontact' , {res:indOne});
+     console.log("Welcome to edit contact page")
+
+});
+// ### post request to edit contact 
+
+app.post('/editcontact/:id', function(req,res){
+
+    var json = JSON.stringify(contact);
+
+    var keyToFind = parseInt(req.params.id);  // Find the data we need to edit
+    var data = contact // Declare the json file as a variable called data
+    var index = data.map(function(contact){return contact.id;}).indexOf(keyToFind) // map out data and find what we need
+
+    var y = req.body.comment;
+    var z = parseInt(req.params.id)
+
+     contact.splice(index, 1, {
+         name: req.body.name,
+         Comment: y,
+         id: z,
+         email: req.body.email
+     });
+    json = JSON.stringify(contact, null, 4);
+    fs.writeFile("./model/contact.json", json, 'utf8' );
+
+    
+    res.redirect("/contacts");
 
 });
 

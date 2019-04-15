@@ -1,0 +1,27 @@
+<% include ../partials/header%>
+
+<div class="row">
+  <h1>Welcome to Edit contact page  <br>
+  <div class="grid-container">
+      <% res.forEach(function(indOne){ %>
+            <form accept-charset="UTF-8" action="/editcontact/<%- indOne.id  %>" indOne.Id method="post"> 
+            
+                <div class="item">
+                  <label for="name">Name</label>
+                    <input name="name" type="text" value="<%= indOne.name %>" />
+                    <label for="Email">Email</label> 
+                    <input name="email" type="text" value="<%= indOne.name %>" />
+                  <label for="Comment">Comment</label>
+                    <input name="comment" type="text" value="<%= indOne.name %>" />
+                   
+            <button class="button">Edit Me!</button>
+            
+                    </div>
+              </form>
+              <% }); %>
+    </div>
+  </h1>
+</div>
+
+
+ <% include ../partials/footer%>
