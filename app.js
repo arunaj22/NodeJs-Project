@@ -96,7 +96,44 @@ app.get('/deletesql/:id', function(req, res){
  
  console.log("Its Gone!");
 });
+//route to createsql page for services
+app.get('/createsql', function(req, res) {
+   res.render('createsql')
+});
 
+//Route to post new product 
+app.post('/createsql', function(req, res){
+   let sql = 'INSERT INTO services (Name, Price, Desciption, Image) VALUES ("'+req.body.name+'", "'+req.body.price+'", "'+req.body.image+'","'+req.body.description+'")';
+   let query = db.query(sql, (err,res) => {
+       if(err) throw err;
+    });
+    res.redirect('/servicessql');
+    //res.send("Product Created here");
+    });
+    
+    //route to edit sql data
+    app.get('/editsql/:id', function(req, res) {
+       
+        let sql = 'SELECT * FROM services WHERE Id= "'+req.params.id+'"' 
+        let query = db.query(sql,(err,res1) =>{
+           if(err) throw err;
+            res.render('edit', {res1});
+           
+        });
+    });
+//post request sql for edit
+
+app.post('/editsql/:id', function(req, res) {
+       
+        let sql = 'UPDATE services SET Name= "'+req.params.Name+'", "'+req.params.Price+'", "'+req.params.Desciption+'", "'+req.params.Image+'" WHERE Id= "'+req.params.Id+'"  ' 
+        let query = db.query(sql,(err,res1) =>{
+           if(err) throw err;
+           // res.render('/edit', {res1});
+        });
+        
+        res.redirect("/servicessql");
+    });
+        
 
 
  // -----------------SQL DATA Finish HERE----------------
@@ -183,6 +220,9 @@ console.log("Ha Ha ....... its gone!")
 res.redirect('/contacts')
 
 });
+
+
+
 //route to edit page of JSON Data
 app.get('/editcontact/:id', function(req, res){
     function chooseContact(indOne){
