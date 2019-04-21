@@ -7,30 +7,34 @@ var mysql = require('mysql');
 
 app.set("view engine", "ejs"); // set default view engine
 
+
 var fs = require('fs');
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended:true}));
 
+
 var contact = require("./model/contact.json");// this declares the content of the contact.json file as a variable called contact
 var product = require("./model/product.json");
+var testimo = require("./model/testimo.json");
 
 //Call the access to the views folder  and allow content to be rendered
 app.use(express.static("views"));
+
+//For Image upload
+const fileUpload = require('express-fileupload');
+app.use (fileUpload());
 
 //Call the access to the script folder  and allow content to be rendered
 app.use(express.static("script"));
 
 //Call the access to the imager folder  and allow content to be render images
-app.use(express.static("images"));
+app.use(express.static("./images"));
+
 
 // create connectivity to sql Database
-// Sub these details for you own gear host database details
-const db = mysql.createConnection ({
- host:'den1.mysql3.gear.host',
- user:'nodepro',
- password:'Yg6G2tl!5TN_',
- database:'nodepro'
-});
+
+
+
 
 // Put some clarity on our connection status
 
@@ -51,87 +55,93 @@ app.get('/', function(req,res){ // this line calls get request on the / URL of t
     console.log("The message was sent and you made an app");
 });
 
- // -----------------SQL DATA Starts HERE----------------
+//-----------------SQL DATA Starts HERE----------------
 // create a route to create a database table..after creating the table comment the createtable section.
 //app.get('/createtable', function(req, res){
-//let sql = 'CREATE TABLE services (Id int NOT NULL AUTO_INCREMENT PRIMARY KEY, Name varchar(255), Price int, Desciption varchar(255),Image varchar(255) );'
+//let sql = 'CREATE TABLE services (Id int NOT NULL AUTO_INCREMENT PRIMARY KEY, Name varchar(255), Price int, Image varchar(255), Description varchar(255))';
     
-  //  let query = db.query(sql, (err,res) => {
-    //    if(err) throw err;
-    //});
-    //res.send("SQL Worked");
+  // let query = db.query(sql, (err,res) => {
+  //     if(err) throw err;
+  // });
+  // res.send("SQL Worked table created"); //type '/createtable' in the url to see the res.send message once table is created u can comment out this section of code.
+  // above /createtable worked for me.
 //});
 
 //Route to create a product by hardcode
 app.get('/createproduct', function(req, res){
-   let sql = 'INSERT INTO services (Name, Price, Desciption, Image) VALUES ("Necklace", 199,  "chain with pendant" ,"chain.jpg")'
+  let sql = 'INSERT INTO services (Name, Price, Image, Description) VALUES ("Necklace", 199, "chain.jpg", "chain with pendant")';
    let query = db.query(sql, (err,res) => {
-       if(err) throw err;
+      if(err) throw err;
     });
-    res.send("Product Created here");
+    res.send("Product Created here by hardcoding in app.js file");
+     //type '/createproduct' in the url to see the res.send message. worked for me
 });
 
-//Route to create to show all service 
+//Route to create to show all service on products gallery page in the app
 app.get('/servicessql', function(req, res){
-   let sql = 'SELECT * FROM services'
+   let sql = 'SELECT * FROM services';
    let query = db.query(sql, (err,res1) => {
-       if(err) throw err;
+      if(err) throw err;
        res.render('showservices', {res1});
-    });
-   // res.send("Product Created here");
+   });
+  console.log("All Products has been shown here from sql services table"); // all this block of code worked for me.
 });
 
+//Route to create a product from  '/createsql' url and on click of navbar menu Create Services button  mysql database shows up 
+//On PoductsGallery page of my app. //route to createsql page 
+app.get('/createsql', function(req, res){
+  res.render('createsql'); 
+}); //worked this part
 
-// function to delete database adta based on button press and form
-app.get('/deletesql/:id', function(req, res){
- // res.send("Hello cruel world!"); // This is commented out to allow the index view to be rendered
- let sql = 'DELETE FROM services WHERE Id = "'+req.params.Id+'";'
- let query = db.query(sql, (err, res1) =>{
-  if(err)
-  throw(err);
- 
-  res.redirect('/servicessql'); // use the render command so that the response object renders a HHTML page
-  
- });
- 
- console.log("Its Gone!");
-});
-//route to createsql page for services
-app.get('/createsql', function(req, res) {
-   res.render('createsql')
-});
+//Route to post new sql product service to my app photo-gallery page and to '/createsql' url and to Mysql databse dynamically
 
-//Route to post new product 
 app.post('/createsql', function(req, res){
-   let sql = 'INSERT INTO services (Name, Price, Desciption, Image) VALUES ("'+req.body.name+'", "'+req.body.price+'", "'+req.body.image+'","'+req.body.description+'")';
-   let query = db.query(sql, (err,res) => {
+    
+     let sampleFile = req.files.sampleFile;
+    filename = sampleFile.name;
+//use middleware fileupload to move the data from the from to desired location
+    sampleFile.mv('./images/'+filename,function(err){
+        if (err)
+        return res.status(500).send(err);
+        console.log("Image is"+ req.files.sampleFile)
+    });
+    
+   let sql = 'INSERT INTO services (Name, Price, Image, Description) VALUES ("'+req.body.name+'", '+req.body.price+', "'+filename+'", "'+req.body.description+'")';
+   let query = db.query(sql, (err,res1) => {
        if(err) throw err;
     });
     res.redirect('/servicessql');
-    //res.send("Product Created here");
-    });
+}); // worked this part as well
+
+// function to delete sql table data based on a delete button click on ProductsGallery page on app and shwoservices file from views folder
+//After deletion takes back to '/servicessql' url and ProductsGallery Page on App.
+app.get('/deletesql/:id', function(req, res){
+ let sql = 'DELETE FROM services WHERE Id = "'+req.params.id+'"';
+ let query = db.query(sql,(err, res1)=>{
+  if(err) throw err;
+   });
+ 
+  res.redirect('/servicessql'); // use the render command so that the response object renders a HHTML page of '/servicessql'
+ console.log("The service is completely Gone from the database"); 
+ }); // deletion code section also worked for me.
     
-    //route to edit sql data
-    app.get('/editsql/:id', function(req, res) {
-       
-        let sql = 'SELECT * FROM services WHERE Id= "'+req.params.id+'"' 
+//route to edit sql data
+app.get('/editsql/:id', function(req, res) {
+       let sql = 'SELECT * FROM services WHERE Id= "'+req.params.id+'"';
         let query = db.query(sql,(err,res1) =>{
-           if(err) throw err;
-            res.render('edit', {res1});
-           
+          if(err) throw err;
+           res.render('edit', {res1});
         });
     });
-//post request sql for edit
+//post request sql for edit after filling out the form and redirecting to ProductGallery page and '/servicessql' url
 
 app.post('/editsql/:id', function(req, res) {
-       
-        let sql = 'UPDATE services SET Name= "'+req.params.Name+'", "'+req.params.Price+'", "'+req.params.Desciption+'", "'+req.params.Image+'" WHERE Id= "'+req.params.Id+'"  ' 
+        let sql = 'UPDATE services SET Name= "'+req.body.name+'", Price= '+req.body.price+', Image= "'+req.body.image+'", Description= "'+req.body.description+'"  WHERE Id= "'+req.params.id+'" ';
         let query = db.query(sql,(err,res1) =>{
            if(err) throw err;
-           // res.render('/edit', {res1});
-        });
-        
-        res.redirect("/servicessql");
+    });
+        res.redirect('/servicessql');
+        console.log("Edit sql worked here!");
     });
         
 
@@ -157,7 +167,6 @@ app.get('/products', function(req, res){
 app.get('/add', function(req, res){
       res.render("add")
      console.log("Welcome to leave comment page")
-
 });
 //app.post function for finding maximum jsaon id and adding 1 to it and return max
 app.post('/add', function(req,res){
@@ -182,13 +191,13 @@ app.post('/add', function(req,res){
     var contactsx = {
         id: newId,
         name: req.body.name,
-        Comment: req.body.email,
-        email: req.body.comment
+        email: req.body.email,
+        Comment: req.body.comment
     }
 // Now we push the data back to the JSON file
     fs.readFile('./model/contact.json', 'utf8', function readfileCallback(err){
         if(err){
-            throw(err)
+            throw(err);
         } else {
           contact.push(contactsx)  // add the new contact to the JSON file
           json = JSON.stringify(contact, null, 4) // structure the new data nicely in the JSON file
@@ -216,9 +225,28 @@ app.get('/deletecontact/:id', function(req,res){
           json = JSON.stringify(contact, null, 4) // structure the new data nicely in the JSON file
           fs.writeFile('./model/contact.json', json, 'utf8')
 
-console.log("Ha Ha ....... its gone!")    
+console.log("....... its gone!")    
 res.redirect('/contacts')
 
+});
+//image uploader 
+app.get('/upload', function(req, res){
+  res.render('upload')  
+});
+//post request for image uploader
+app.post('/upload', function(req, res){
+    
+ //    need to get the image from the form
+ 
+ let sampleFile = req.files.sampleFile
+  filename = sampleFile.name;
+ // we use the middleware (file upload ) to move the data from the form to the desired location
+    sampleFile.mv('./images/' + filename, function(err){
+        if(err)
+        return res.status(500).send(err);
+        console.log("Image is " + req.files.sampleFile)
+        res.redirect('/');
+    });
 });
 
 
@@ -254,14 +282,18 @@ app.post('/editcontact/:id', function(req,res){
      });
     json = JSON.stringify(contact, null, 4);
     fs.writeFile("./model/contact.json", json, 'utf8' );
-
-    
     res.redirect("/contacts");
 
 });
 
+//__________________Third data with testimo.json just for reading data-----
+//route to Testimonials page
+app.get('/testimo', function(req,res){ // this line calls get request on the / URL of the application
 
+    res.render("testimo", {testimo}); //resders testimo.ejs 
 
+    console.log("This is testimonials  page route");
+});
 
  // **** Never write abything below this line****   
 app.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){

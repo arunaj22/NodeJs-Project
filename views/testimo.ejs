@@ -1,0 +1,37 @@
+<% include ../partials/header %>
+
+
+<div class="row">
+                <h2> Testimonials page</h2>
+
+  <p> with JSON Data showing up from testimo.json<p>
+      
+      <p>Welcome to Antiques boutique, The source for all types of Antique Restoration.</p>
+
+      
+  <div class="grid-container">
+      <% testimo.forEach(function(testimo){ %>
+      
+           <div class="item">     
+                <div class="item">
+                  
+                   
+                   <h1 class="itemtitle">Id: <%= testimo.id %></h1>
+                   <h1 class="itemp">Name: <%= testimo.name %> </h1>
+                    <h1 class="itemp">Work done weeks: <%= testimo.doweek %> </h1>
+                    <img src = "/<%= testimo.image %>" class ="pimage"> </img>
+                    <h1 class="itemp">Image: <%= testimo.details %> </h1>
+                   
+                   
+                </div>
+            </div>
+              
+         <% }); %>
+    </div>
+  
+</div>
+
+
+
+
+<% include ../partials/footer %>

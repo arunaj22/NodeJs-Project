@@ -1,31 +1,31 @@
-<% include ../partials/header%>
-        
+
+        <% include ../partials/header%>
             <div class="row">
-                <h2> Welcome to Services Page SQL page</h2>
-                <h2>just for git</h2>
+                <h2> Welcome to Services SQL page</h2>
+                <p>just for git</p>
 <div class="row">
-  <h2>Welcome to the Contacts page  <br>
+  <p>Welcome to the Contacts page </p> 
   <div class="grid-container">
-      <% res1.forEach(function(contact){ %>
+      <% res1.forEach(function(product){ %>
       
-           <div class="item">     
+               
                 <div class="item">
-                   <h1 class="itemtitle">Id: <%= contact.Id %> </h1>
-                   <h1 class="itemtitle">Name: <%= contact.Name %> </h1>
-                   <h1 class="itemtitle">Price: <%= contact.Price %> </h1>
-                    <img src="/<%= contact.Image %>" class= "pimage"> </img> 
-                   <h1 class="itemtitle">Desciption: <%= contact.Desciption %> </h1>
+                   <h1 class="itemtitle">Id: <%= product.Id %> </h1>
+                   <h1 class="itemtitle">Name: <%= product.Name %> </h1>
+                   <h1 class="itemtitle">Price: <%= product.Price %> </h1>
+                    <img src="/<%= product.Image %>" class= "pimage"> </img> 
+                   <h1 class="itemtitle">Description: <%= product.Description %> </h1>
                    
-                   <a href="/deletesql/<%= contact.Id %>" class="button">Delete Me!</a>
-                   <a href="/editsql/<%= contact.Id %>" class="button">Edit Me!</a>
+                   <a href="/deletesql/<%= product.Id %>" class="button">Delete Me!</a>
+                   <a href="/editsql/<%= product.Id %>" class="button">Edit Me!</a>
                   
                 </div>
-            </div>
+            
               
          <% }); %>
     </div>
  
 </div>
 
-        
-   <% include ../partials/footer%>
+    <% include ../partials/footer%>    
+ 

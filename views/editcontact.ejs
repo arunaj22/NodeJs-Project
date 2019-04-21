@@ -1,7 +1,12 @@
 <% include ../partials/header%>
 
+<!--from this page comments from the About us can be changed after filling the form and clicking on edit button and updtes data
+on JSON file and also on About us page on client side-->
+
 <div class="row">
-  <h1>Welcome to Edit contact page  <br>
+  <h1>Welcome to Edit contact page  </h1><br>
+  <h3>Enter or change dataa from the form and click Edit to edit comments</h3>
+  
   <div class="grid-container">
       <% res.forEach(function(indOne){ %>
             <form accept-charset="UTF-8" action="/editcontact/<%- indOne.id  %>" indOne.Id method="post"> 
@@ -10,18 +15,18 @@
                   <label for="name">Name</label>
                     <input name="name" type="text" value="<%= indOne.name %>" />
                     <label for="Email">Email</label> 
-                    <input name="email" type="text" value="<%= indOne.name %>" />
+                    <input name="email" type="text" value="<%= indOne.email %>" />
                   <label for="Comment">Comment</label>
-                    <input name="comment" type="text" value="<%= indOne.name %>" />
+                    <input name="comment" type="text" value="<%= indOne.Comment %>" />
                    
-            <button class="button">Edit Me!</button>
+                  <button class="button">Edit Me!</button>
             
-                    </div>
-              </form>
-              <% }); %>
+                </div>
+            </form>
+        <% }); %>
     </div>
-  </h1>
+  
 </div>
 
-
  <% include ../partials/footer%>
+ 

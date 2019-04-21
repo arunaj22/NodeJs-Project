@@ -1,18 +1,29 @@
 <% include ../partials/header%>
+
+<!--This About us(client side) page comments lists are displayed with edit & delete buttons after clicking on the buttons action will
+take place on click of edit button edit page renders with form filled with preloaded data in it to edit. Data displayed is from JSON 
+file on click of delete & edit, JSON file will also be updated as well as with the client side About Us page-->
         
             <div class="row">
-                <h2> Welcome to Contacs page</h2>
-<div class="row">
-  <h2>Contacts Page with JSON Data Comments passed on through the form from Contact us page <br>
+                <h2> About Us page</h2>
+
+  <p>About us with JSON Data-- Comments passed on through the form from Contact us page will be shown here<p>
+      
+      <p>Welcome to Antiques boutique, The source for all types of Antique Restoration.</p>
+<p>A background of specialism- respected by eminent auctioneers, trusted by passionate collectors, relied upon by insurance companies.</p>
+
+      
   <div class="grid-container">
       <% contact.forEach(function(contact){ %>
       
            <div class="item">     
                 <div class="item">
-                   <h1 class="itemtitle">Id: <%= contact.id %> </h1>
-                   <h1 class="itemtitle">Id: <%= contact.name %> </h1>
-                   <h1 class="itemtitle">Id: <%= contact.email %> </h1>
-                   <h1 class="itemtitle">Id: <%= contact.Comment %> </h1>
+                  
+                   
+                   <h1 class="itemtitle">Id: <%= contact.id %></h1>
+                   <h1 class="itemp">Name: <%= contact.name %> </h1>
+                    <h1 class="itemp">Email: <%= contact.email %> </h1>
+                    <h1 class="itemp">Comment: <%= contact.Comment %> </h1>
                    
                    <a href="/deletecontact/<%= contact.id %>" class="button">Delete Me!</a>
                    <a href="/editcontact/<%= contact.id %>" class="button">Edit Me!</a>
@@ -21,8 +32,9 @@
               
          <% }); %>
     </div>
-  </h2>
+  
 </div>
+
 
 
 

@@ -1,50 +1,52 @@
 body {
     background-color: #555;
-    background-image: url("/background1.jpg");
+    background-image: url("background2.jpg");
     background-repeat:no-repeat;
     background-size:100% 100%;
       text-align: center;
     min-height:900px; /* we will remove this later */
+    font-family: 'Pathway Gothic One', sans-serif;
 }
 .logiIm {
-    width: 60%;
+    width: 100%;
+    height:150%;
+    padding: 0;
 }  
 .imhold{      /* For Logo */
-    text-align: center;
-    width: 15%;
-    margin-left: auto;
-    margin-right: auto;
+    width: 250px;
+    height:100px;
+    /*background-color: #555;*/
+    margin-left: 3px;
+    margin-right: 3px;
+     margin-top: 1px;
+      margin-top: 3px;
     float:left;
 }
 .navhold{   /* For Nav Bar */
     text-align: center;
-    width: 80%;
+    width: 70%;
     margin-left: auto;
     margin-right: auto;
     float: left;
     margin-top: 30px;
     margin-bottom: 30px;
 }
-.holder {
-    text-align: center;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-}
+
 /* Add a black background color to the top navigation */
 .topnav {  
     background-color:#0009;
+    padding:0.4%;
   overflow: auto;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 /* Style the links inside the navigation bar */
 .topnav a {
     float: left;
     color: orange;
     text-align: center;
-    padding: 14px 16px;
+    padding: 8px 30px;
     text-decoration: none;
-    font-size: 17px;
+    font-size: 24px;
 }
 /* Change the color of links on hover */
 .topnav a:hover {
@@ -59,12 +61,18 @@ body {
 .row {
     display: -webkit-flex;
     display: inline-block;
+    /*background-color: #ddd; */
     width: 100%;
-    color:  white;
-    bottom-padding: 10px;
-    top-padding:0;
-}
+    color:  #011028;
+   }
+ .row h2 {
+    font-size: 30px;
+ }
+  .row p {
+    font-size: 25px;
+ }
 .holder {
+	
     text-align: center;
     width: 90%;
     margin-left: auto;
@@ -72,7 +80,7 @@ body {
 }
 .large {
     width: 30%;
-     background-image: url('/camera.jpg');
+     background-image: url('camera.jpg');
       background-repeat:no-repeat;
     background-size:cover;
     float: left;
@@ -80,36 +88,89 @@ body {
     margin-left:10px;
     height: 300px;
 }
-.large h1 {
-    margin-bottom: 20px;    
-    font-size: 60px;
-    color: #ffffff;
+#Btn{
+    background-color: #9b6b41;
+    border: none;
+    color: white;
+    padding: 3px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 1px 5px;
+   }
+#myBtn{
+    background-color: #9b6b41;
+    border: none;
+    color: white;
+    padding: 3px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 1px 5px;
+   }
+#Btn1{
+    background-color: #9b6b41;
+    border: none;
+    color: white;
+    padding: 3px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 1px 5px;
+   }
+#myBtn1{
+    background-color: #9b6b41;
+    border: none;
+    color: white;
+    padding: 3px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 1px 5px;
+   }
+#Btn2{
+    background-color: #9b6b41;
+    border: none;
+    color: white;
+    padding: 3px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 1px 5px;
+   }
+#myBtn2{
+    background-color: #9b6b41;
+    border: none;
+    color: white;
+    padding: 3px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 1px 5px;
+   }
+.larget{
+    width: 30%;
+     background-color: #0005;   
+       float: left;
+    padding:5px;
+    margin-left:10px;
+    height: 300px;
+	margin-bottom: 10px;
 }
-.large h2 {
-    margin-top: 20px;
-    margin-bottom: 2px;
-    font-size: 60px;
-    color: #ffffff;
-}
-.normal h1 {
-    margin-bottom: 2px;    
-    font-size: 40px;
-    color: #ffffff;
-}
-.normal h2 {
-    margin-top: 2px;
-    margin-bottom: 2px;
-    font-size: 40px;
-    color: #ffffff;
-}
-.normal2 h1 {
-    margin-bottom: 2px;    
-    font-size: 40px;
-    color: #ffffff;
+.larget p{
+font-family: 'Pathway Gothic One', sans-serif;
+font-size: 22px;
+color:  #011028;	
 }
 .normal {
     width: 30%;
-     background-image: url('/pocketWatch.jpg');
+     background-image: url('pocketWatch.jpg');
       background-repeat:no-repeat;
     background-size:cover;
     float: left;
@@ -117,10 +178,21 @@ body {
      height: 300px;
      margin-left:10px;
      margin-bottom:10px;
+}
+.large h1 {
+    margin-bottom: 20px;    
+    font-size: 20px;
+    color: #ffffff;
+}
+.normal h2 {
+    margin-top: 6px;
+    
+    font-size: 20px;
+    color: #ffffff;
 }
 .normal2 {
     width: 30%;
-     background-image: url('/chair.jpg');
+     background-image: url('chair.jpg');
       background-repeat:no-repeat;
     background-size:cover;
     float: left;
@@ -129,6 +201,12 @@ body {
      margin-left:10px;
      margin-bottom:10px;
 }
+.normal2 h1 {
+    margin-top: 6px;    
+    font-size: 20px;
+    color: #ffffff;
+}
+
 /* Style the footer */
 .footer {
     background-color: #0009;
@@ -137,7 +215,8 @@ body {
 }
 
 .footer p{
-    color: #ffffff;
+    color: orange;
+	font-size: 19px;
 }
 /* Style for products page */
 .grid-container {
@@ -145,26 +224,26 @@ body {
   align-content: center;
   grid-template-columns: auto auto auto;
   grid-gap: 10px;
- /*background-color: #2196F3;   Comment this out later to remove the background color when not needed */
-  padding: 8px;
+/* background-color: #2196F3;  commented out after done the grid-container */
+  padding: 40px;
 }
 .item {
-  background-color: #0009;
-  text-align: center;
-  padding: 5px 0;
- 
-}
+  background-color: #0007;
+     text-align: center;
+  padding: 2px 0;
+  font-size: 25px;
+ }
 #itemsContainer {
-    width: 100%;
+    width: 10%;
     text-align: center;
 }
 .itemtitle {
    display: block;
-    color: #4CAF50;
+    color: white;
     text-align: center;
     padding: 5px 5px;
-    text-decoration: none;
-    font-size: 15px
+    
+    font-size: 20px
 }
 .itemp {
    display: block;
@@ -172,25 +251,23 @@ body {
     text-align: center;
     padding: 4px 6px;
     text-decoration: none;
-    font-size: 16px
-    
+    font-size: 20px;
 }
 .pimage {
     width: 30%; 
     margin-left: auto; 
     margin-right: auto; 
     display: block;
-    
 }
 .button {
-    background-color: #224205;
+    background-color: #9b6b41;
     border: none;
     color: white;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 20px;
     margin: 4px 2px;
     cursor: pointer;
 }
@@ -201,7 +278,6 @@ body {
     padding: 14px 16px;
     text-decoration: none;
     font-size: 20px
-    
 }
 #itemsContainer h1 {
    display: block;
@@ -232,7 +308,7 @@ input[type=text], select {
     box-sizing: border-box;
 }
 input[type=submit] {
-    width: 100%;
+    width: 80%;
     background-color: #4CAF50;
     color: white;
     padding: 14px 20px;

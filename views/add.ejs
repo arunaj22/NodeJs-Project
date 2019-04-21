@@ -1,20 +1,25 @@
 <% include ../partials/header%>
 
+<!--from this Contact us(client side) page comments can be added after filling the form and clicking on Leave Comment button, the 
+entered data updates to JSON file as will as to About us page on client side-->
+
 <div class="row">
     <h1>Please Contact Us</h1>
+    <h2>Leave Comments here for Antique Boutique for it's JSON file </h2>
+
 
     <div class="grid-container">
         <form accept-charset="UTF-8" action="/add" method="post">
 
             <div class="item">
                 <label for="name">Name:</label>
-                <input name="name" type="text" placeholder="Please enter your name" />
+                <input name="name" type="text" placeholder="Please enter your name", required autofocus />
                 
                 <label for="email">Email:</label>
-                <input name="email" type="text" placeholder="Please enter your email address" />     
+                <input name="email" type="text" placeholder="Please enter your email address", pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$", title="Please Enter Email Format", required/>     
 
                 <label for="comment">Comment:</label>
-                <input name="comment" type="text" placeholder="Please enter your comment" /> 
+                <input name="comment" type="text" placeholder="Please enter your comment", required /> 
 
                 <button class="button">Leave Comment</button>
             </div>

@@ -2,25 +2,35 @@
 
 <div class="row">
     <h1>Create a Product with SQL</h1>
+    
+  
 
     <div class="grid-container">
-        <form accept-charset="UTF-8" action="/createsql" method="post">
+        <form accept-charset="UTF-8" id= "uploadForm" ref= "uploadForm" action="/createsql" method="post" enctype= "multipart/form-data">
 
             <div class="item">
                 <label for="name">Name:</label>
-                <input name="name" type="text" placeholder="Please enter product name" />
+                <input name="name" type="text" placeholder="Please enter Product name", required, autofocus/>
                 
                 <label for="price">Price:</label>
-                <input name="price" type="text" placeholder="Please enter your email address" />     
+                <input name="price" type="text" placeholder="Please enter Price", pattern='[0-9]+', required/>     
 
-                <label for="description">Description:</label>
-                <input name="comment" type="text" placeholder="Please enter Description" /> 
+                <label for="image">Image:</label>
+                <br>
+                <input class="button" type="file" name="sampleFile"/>
+                 <br>
                 
-                 <label for="image">Image:</label>
-                <input name="image" type="text" placeholder="Please enter image name" /> 
+               <!-- <input name="image" type="text" placeholder="Please enter image name with extention" /> -->
+                
+                 <label for="description">Description:</label>
+                <input name="description" type="text" placeholder="Please enter Description of the service", required /> 
 
-                <button class="button">Create Service</button>
+                <button class="button">CreateNewService</button>
             </div>
+            
+        </form>
+    </div>
+</div>
 
 
 <% include ../partials/footer%>
