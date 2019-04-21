@@ -34,8 +34,6 @@ app.use(express.static("./images"));
 // create connectivity to sql Database
 
 
-
-
 // Put some clarity on our connection status
 
 db.connect((err) => {
